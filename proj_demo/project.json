@@ -1,0 +1,23 @@
+{
+  "project": {
+    "name": "FriendlyUI",
+    "lvgl_version": "v8",
+    "target": {
+      "resX": 320,
+      "resY": 240,
+      "colorDepth": 16
+    }
+  },
+  "screens": [
+    {
+      "title": "Main",
+      "c_name": "screen_main",
+      "bg_color": "#101010",
+      "widgets": [],
+      "vars": []
+    }
+  ],
+  "ui": {
+    "theme": "system"
+  }
+}
