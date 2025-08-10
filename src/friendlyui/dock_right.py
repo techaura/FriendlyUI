@@ -5,6 +5,11 @@ from PySide6.QtGui import QIcon, QPixmap, QPainter, QColor, QDrag
 from PySide6.QtCore import Qt, QMimeData, QByteArray, QSize, QPoint
 from .widgets_registry import load_widget_groups
 from pathlib import Path
+try:
+    from PySide6.QtSvg import QSvgRenderer
+except Exception:
+    QSvgRenderer = None
+
 
 def make_tile_icon(tag: str) -> QIcon:
     pm = QPixmap(72, 56); pm.fill(Qt.transparent)
@@ -14,6 +19,37 @@ def make_tile_icon(tag: str) -> QIcon:
     p.drawText(pm.rect(), Qt.AlignCenter, tag)
     p.end()
     return QIcon(pm)
+
+def icon_from_path(icon_path: str | Path, tag_fallback: str) -> QIcon:
+    """
+    Пытаемся загрузить иконку:
+    - сначала обычный QIcon(file)
+    - если SVG и QIcon вернул null, пробуем через QSvgRenderer → QPixmap → QIcon
+    - если совсем не смогли — рисуем плитку с тегом
+    """
+    if not icon_path:
+        return make_tile_icon(tag_fallback)
+
+    p = str(icon_path)
+    ic = QIcon(p)
+    if not ic.isNull():
+        return ic
+
+    # fallback для SVG (когда не подхватился SVG-плагин)
+    if QSvgRenderer is not None and p.lower().endswith(".svg"):
+        if Path(p).exists():
+            r = QSvgRenderer(p)
+            if r.isValid():
+                pm = QPixmap(72, 56)
+                pm.fill(Qt.transparent)
+                qp = QPainter(pm)
+                r.render(qp)  # во весь прямоугольник
+                qp.end()
+                ic = QIcon(pm)
+                if not ic.isNull():
+                    return ic
+
+    return make_tile_icon(tag_fallback)
 
 class PaletteList(QListWidget):
     def __init__(self):
@@ -77,7 +113,7 @@ class RightDock(QDockWidget):
         for group, items in groups.items():
             wl = PaletteList()
             for wtype, tag, icon_path in items:
-                icon = QIcon(str(icon_path)) if (icon_path and Path(icon_path).exists()) else make_tile_icon(tag)
+                icon = icon_from_path(icon_path, tag)
                 it = QListWidgetItem(icon, wtype)
                 it.setData(Qt.UserRole, wtype)
                 wl.addItem(it)

@@ -1,41 +1,56 @@
 {
-  "Basic": [
-    { "type": "lv_obj",     "tag": "OBJ",  "icon": "icons/lv_obj.svg" },
-    { "type": "lv_label",   "tag": "LBL",  "icon": "icons/lv_label.svg" },
-    { "type": "lv_btn",     "tag": "BTN",  "icon": "icons/lv_btn.svg" },
-    { "type": "lv_img",     "tag": "IMG",  "icon": "icons/lv_img.svg" },
-    { "type": "lv_line",    "tag": "LINE", "icon": "icons/lv_line.svg" },
-    { "type": "lv_bar",     "tag": "BAR",  "icon": "icons/lv_bar.svg" },
-    { "type": "lv_arc",     "tag": "ARC",  "icon": "icons/lv_arc.svg" },
-    { "type": "lv_slider",  "tag": "SLDR", "icon": "icons/lv_slider.svg" },
-    { "type": "lv_switch",  "tag": "SW",   "icon": "icons/lv_switch.svg" },
-    { "type": "lv_led",     "tag": "LED",  "icon": "icons/lv_led.svg" },
-    { "type": "lv_canvas",  "tag": "CNV",  "icon": "icons/lv_canvas.svg" },
-    { "type": "lv_table",   "tag": "TBL",  "icon": "icons/lv_table.svg" },
-    { "type": "lv_span",    "tag": "SPAN", "icon": "icons/lv_span.svg" }
-  ],
-  "Selectors": [
-    { "type": "lv_checkbox",  "tag": "CHK",  "icon": "icons/lv_checkbox.svg" },
-    { "type": "lv_btnmatrix", "tag": "BMAT", "icon": "icons/lv_btnmatrix.svg" },
-    { "type": "lv_dropdown",  "tag": "DD",   "icon": "icons/lv_dropdown.svg" },
-    { "type": "lv_roller",    "tag": "RLL",  "icon": "icons/lv_roller.svg" },
-    { "type": "lv_spinbox",   "tag": "SPB",  "icon": "icons/lv_spinbox.svg" },
-    { "type": "lv_msgbox",    "tag": "MSG",  "icon": "icons/lv_msgbox.svg" },
-    { "type": "lv_calendar",  "tag": "CAL",  "icon": "icons/lv_calendar.svg" },
-    { "type": "lv_colorwheel","tag": "CWH",  "icon": "icons/lv_colorwheel.svg" }
-  ],
-  "Inputs": [
-    { "type": "lv_textarea", "tag": "TA",   "icon": "icons/lv_textarea.svg" },
-    { "type": "lv_keyboard", "tag": "KBD",  "icon": "icons/lv_keyboard.svg" }
-  ],
-  "Containers": [
-    { "type": "lv_tabview",  "tag": "TAB",  "icon": "icons/lv_tabview.svg" },
-    { "type": "lv_tileview", "tag": "TV",   "icon": "icons/lv_tileview.svg" },
-    { "type": "lv_list",     "tag": "LIST", "icon": "icons/lv_list.svg" },
-    { "type": "lv_menu",     "tag": "MENU", "icon": "icons/lv_menu.svg" },
-    { "type": "lv_meter",    "tag": "MTR",  "icon": "icons/lv_meter.svg" },
-    { "type": "lv_chart",    "tag": "CHT",  "icon": "icons/lv_chart.svg" },
-    { "type": "lv_animimg",  "tag": "AIMG", "icon": "icons/lv_animimg.svg" },
-    { "type": "lv_spinner",  "tag": "SPIN", "icon": "icons/lv_spinner.svg" }
+  "version": "v9",
+  "groups": [
+    {
+      "name": "Basic",
+      "widgets": [
+        { "type": "lv_obj",    "tag": "OBJ",  "icon": "icons/lv_obj.svg" },
+        { "type": "lv_label",  "tag": "LBL",  "icon": "icons/lv_label.svg" },
+        { "type": "lv_button", "tag": "BTN",  "icon": "icons/lv_btn.svg" },
+        { "type": "lv_img",    "tag": "IMG",  "icon": "icons/lv_img.svg" },
+        { "type": "lv_line",   "tag": "LINE", "icon": "icons/lv_line.svg" },
+        { "type": "lv_bar",    "tag": "BAR",  "icon": "icons/lv_bar.svg" },
+        { "type": "lv_arc",    "tag": "ARC",  "icon": "icons/lv_arc.svg" },
+        { "type": "lv_slider", "tag": "SLDR", "icon": "icons/lv_slider.svg" },
+        { "type": "lv_switch", "tag": "SW",   "icon": "icons/lv_switch.svg" },
+        { "type": "lv_led",    "tag": "LED",  "icon": "icons/lv_led.svg" },
+        { "type": "lv_canvas", "tag": "CNV",  "icon": "icons/lv_canvas.svg" },
+        { "type": "lv_table",  "tag": "TBL",  "icon": "icons/lv_table.svg" },
+        { "type": "lv_span",   "tag": "SPAN", "icon": "icons/lv_span.svg" }
+      ]
+    },
+    {
+      "name": "Selectors",
+      "widgets": [
+        { "type": "lv_checkbox",  "tag": "CHK",  "icon": "icons/lv_checkbox.svg" },
+        { "type": "lv_btnmatrix", "tag": "BMAT", "icon": "icons/lv_btnmatrix.svg" },
+        { "type": "lv_dropdown",  "tag": "DD",   "icon": "icons/lv_dropdown.svg" },
+        { "type": "lv_roller",    "tag": "RLL",  "icon": "icons/lv_roller.svg" },
+        { "type": "lv_spinbox",   "tag": "SPB",  "icon": "icons/lv_spinbox.svg" },
+        { "type": "lv_msgbox",    "tag": "MSG",  "icon": "icons/lv_msgbox.svg" },
+        { "type": "lv_calendar",  "tag": "CAL",  "icon": "icons/lv_calendar.svg" },
+        { "type": "lv_colorwheel","tag": "CWH",  "icon": "icons/lv_colorwheel.svg" }
+      ]
+    },
+    {
+      "name": "Inputs",
+      "widgets": [
+        { "type": "lv_textarea", "tag": "TA",  "icon": "icons/lv_textarea.svg" },
+        { "type": "lv_keyboard", "tag": "KBD", "icon": "icons/lv_keyboard.svg" }
+      ]
+    },
+    {
+      "name": "Containers",
+      "widgets": [
+        { "type": "lv_tabview",  "tag": "TAB",  "icon": "icons/lv_tabview.svg" },
+        { "type": "lv_tileview", "tag": "TV",   "icon": "icons/lv_tileview.svg" },
+        { "type": "lv_list",     "tag": "LIST", "icon": "icons/lv_list.svg" },
+        { "type": "lv_menu",     "tag": "MENU", "icon": "icons/lv_menu.svg" },
+        { "type": "lv_meter",    "tag": "MTR",  "icon": "icons/lv_meter.svg" },
+        { "type": "lv_chart",    "tag": "CHT",  "icon": "icons/lv_chart.svg" },
+        { "type": "lv_animimg",  "tag": "AIMG", "icon": "icons/lv_animimg.svg" },
+        { "type": "lv_spinner",  "tag": "SPIN", "icon": "icons/lv_spinner.svg" }
+      ]
+    }
   ]
 }
