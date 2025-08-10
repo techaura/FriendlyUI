@@ -1,0 +1,17 @@
+FriendlyUI/
+  src/
+    friendlyui/
+      __init__.py
+      app.py                 # точка входа (раньше friendly_ui.py)
+      themes.py              # темы (system/dark)
+      settings_dialog.py     # Project → Settings
+      models.py              # normalize_c_identifier и структура project.json
+      dock_left.py           # левая колонка (Windows/Widgets/Variables)
+      dock_right.py          # правая колонка (Properties + Palette)
+      widgets_registry.py    # Загрузка палитры виджетов по версии (v8/v9)
+  assets/
+    widgets_v8.json
+    widgets_v9.json
+  requirements.txt
+  .gitignore
+  README.md

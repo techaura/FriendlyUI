@@ -1,0 +1,56 @@
+{
+  "version": "v8",
+  "groups": [
+    {
+      "name": "Basic",
+      "widgets": [
+        {"type": "lv_obj", "tag": "OBJ"},
+        {"type": "lv_label", "tag": "LBL"},
+        {"type": "lv_btn", "tag": "BTN"},
+        {"type": "lv_img", "tag": "IMG"},
+        {"type": "lv_line", "tag": "LINE"},
+        {"type": "lv_bar", "tag": "BAR"},
+        {"type": "lv_arc", "tag": "ARC"},
+        {"type": "lv_slider", "tag": "SLDR"},
+        {"type": "lv_switch", "tag": "SW"},
+        {"type": "lv_led", "tag": "LED"},
+        {"type": "lv_canvas", "tag": "CNV"},
+        {"type": "lv_table", "tag": "TBL"},
+        {"type": "lv_span", "tag": "SPAN"}
+      ]
+    },
+    {
+      "name": "Selectors",
+      "widgets": [
+        {"type": "lv_checkbox", "tag": "CHK"},
+        {"type": "lv_btnmatrix", "tag": "BMAT"},
+        {"type": "lv_dropdown", "tag": "DD"},
+        {"type": "lv_roller", "tag": "RLL"},
+        {"type": "lv_spinbox", "tag": "SPB"},
+        {"type": "lv_msgbox", "tag": "MSG"},
+        {"type": "lv_calendar", "tag": "CAL"},
+        {"type": "lv_colorwheel", "tag": "CWH"}
+      ]
+    },
+    {
+      "name": "Inputs",
+      "widgets": [
+        {"type": "lv_textarea", "tag": "TA"},
+        {"type": "lv_keyboard", "tag": "KBD"}
+      ]
+    },
+    {
+      "name": "Containers",
+      "widgets": [
+        {"type": "lv_tabview", "tag": "TAB"},
+        {"type": "lv_tileview", "tag": "TV"},
+        {"type": "lv_list", "tag": "LIST"},
+        {"type": "lv_menu", "tag": "MENU"},
+        {"type": "lv_meter", "tag": "MTR"},
+        {"type": "lv_chart", "tag": "CHT"},
+        {"type": "lv_animimg", "tag": "AIMG"},
+        {"type": "lv_spinner", "tag": "SPIN"}
+      ]
+    }
+  ]
+}

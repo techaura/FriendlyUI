@@ -1,0 +1,23 @@
+{
+  "version": "v9",
+  "groups": [
+    {
+      "name": "Basic",
+      "widgets": [
+        {"type": "lv_obj", "tag": "OBJ"},
+        {"type": "lv_label", "tag": "LBL"},
+        {"type": "lv_button", "tag": "BTN"},   // пример: если в v9 тип меняется — укажи здесь
+        {"type": "lv_img", "tag": "IMG"},
+        {"type": "lv_line", "tag": "LINE"},
+        {"type": "lv_bar", "tag": "BAR"},
+        {"type": "lv_arc", "tag": "ARC"},
+        {"type": "lv_slider", "tag": "SLDR"},
+        {"type": "lv_switch", "tag": "SW"},
+        {"type": "lv_led", "tag": "LED"},
+        {"type": "lv_canvas", "tag": "CNV"},
+        {"type": "lv_table", "tag": "TBL"},
+        {"type": "lv_span", "tag": "SPAN"}
+      ]
+    }
+  ]
+}
