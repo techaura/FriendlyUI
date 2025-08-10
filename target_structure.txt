@@ -1,3 +1,4 @@
+v1
 FriendlyUI/
   src/
     friendlyui/
@@ -15,3 +16,24 @@ FriendlyUI/
   requirements.txt
   .gitignore
   README.md
+  
+v2
+FriendlyUI/
+├─ assets/
+│  ├─ icons/                 ← твои 31 SVG
+│  ├─ widgets_v8.json        ← палитра v8
+│  └─ widgets_v8.json        ← палитра v9
+├─ src/
+│  └─ friendlyui/
+│     ├─ __init__.py
+│     ├─ app.py              ← точка входа (python -m friendlyui.app)
+│     ├─ dock_left.py
+│     ├─ dock_right.py
+│     ├─ models.py
+│     ├─ settings_dialog.py
+│     ├─ themes.py
+│     └─ widgets_registry.py
+├─ tools/
+│  └─ generate_icons.py      ← опционально (для регена SVG)
+├─ .gitignore
+└─ requirements.txt

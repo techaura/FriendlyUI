@@ -1,10 +1,10 @@
 # src/friendlyui/dock_right.py
 from __future__ import annotations
-from typing import Callable, Dict, List, Tuple
 from PySide6.QtWidgets import QDockWidget, QWidget, QVBoxLayout, QGroupBox, QLabel, QTabWidget, QListWidget, QListWidgetItem
 from PySide6.QtGui import QIcon, QPixmap, QPainter, QColor, QDrag
 from PySide6.QtCore import Qt, QMimeData, QByteArray, QSize, QPoint
 from .widgets_registry import load_widget_groups
+from pathlib import Path
 
 def make_tile_icon(tag: str) -> QIcon:
     pm = QPixmap(72, 56); pm.fill(Qt.transparent)
@@ -26,7 +26,7 @@ class PaletteList(QListWidget):
         self.setMovement(QListWidget.Static)
         self.setUniformItemSizes(True)
 
-    def startDrag(self, supportedActions):
+    def startDrag(self, _):
         it = self.currentItem()
         if not it: return
         mime = QMimeData()
@@ -38,10 +38,11 @@ class PaletteList(QListWidget):
         drag.exec(Qt.CopyAction)
 
 class RightDock(QDockWidget):
-    """Правая колонка: Properties (top), Widgets palette (bottom)."""
-    def __init__(self, get_lvgl_version: Callable[[], str], parent=None):
+    """Правая колонка: Properties (top), Widgets palette (bottom) из JSON."""
+    def __init__(self, parent=None, lvgl_version: str = "v8"):
         super().__init__("Library")
-        self.get_lvgl_version = get_lvgl_version
+        self.setAllowedAreas(Qt.RightDockWidgetArea)
+        self.lvgl_version = lvgl_version
 
         root = QWidget(); self.setWidget(root)
         lay = QVBoxLayout(root); lay.setContentsMargins(6,6,6,6); lay.setSpacing(8)
@@ -52,20 +53,32 @@ class RightDock(QDockWidget):
         lay.addWidget(gb_top)
 
         gb_bottom = QGroupBox("Widgets palette")
-        lbot = QVBoxLayout(gb_bottom)
-        self.tabs = QTabWidget()
-        lbot.addWidget(self.tabs)
+        self._pal_layout = QVBoxLayout(gb_bottom)
         lay.addWidget(gb_bottom, 1)
 
-        self.reload_palette()
+        self.tabs = None
+        self.reload_palette(self.lvgl_version)
 
-    def reload_palette(self):
-        self.tabs.clear()
-        groups = load_widget_groups(self.get_lvgl_version())
+    def reload_palette(self, lvgl_version: str | None = None):
+        # обновим версию, если пришла явно
+        if lvgl_version:
+            self.lvgl_version = lvgl_version
+
+        # создать tabs при первом вызове, иначе просто очистить
+        if self.tabs is None:
+            self.tabs = QTabWidget()
+            self._pal_layout.addWidget(self.tabs)
+        else:
+            self.tabs.clear()
+
+        # грузим группы по текущей версии
+        groups = load_widget_groups(self.lvgl_version)
+
         for group, items in groups.items():
             wl = PaletteList()
-            for wtype, tag in items:
-                it = QListWidgetItem(make_tile_icon(tag), wtype)
+            for wtype, tag, icon_path in items:
+                icon = QIcon(str(icon_path)) if (icon_path and Path(icon_path).exists()) else make_tile_icon(tag)
+                it = QListWidgetItem(icon, wtype)
                 it.setData(Qt.UserRole, wtype)
                 wl.addItem(it)
             self.tabs.addTab(wl, group)

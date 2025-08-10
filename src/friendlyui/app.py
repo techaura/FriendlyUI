@@ -1,4 +1,5 @@
 # src/friendlyui/app.py
+from __future__ import annotations
 import sys
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel
@@ -39,20 +40,20 @@ class MainWindow(QMainWindow):
         self.left.list_windows.currentRowChanged.connect(lambda _: self.left.populate_widgets())
         self.left.list_windows.setCurrentRow(0)
 
-        # right dock (palette uses current lvgl_version)
-        self.right = RightDock(get_lvgl_version=lambda: self.data.get("project", {}).get("lvgl_version", "v8"))
+        # right dock — версия из project.json
+        lvgl_version = self.data.get("project", {}).get("lvgl_version", "v8")
+        self.right = RightDock(self, lvgl_version=lvgl_version)
         self.addDockWidget(Qt.RightDockWidgetArea, self.right)
 
-        # Menus
+        # menus
         self._make_menus()
 
-    # ---- helpers ----
     def _get_current_screen(self) -> dict:
         idx = self.left.list_windows.currentRow()
         if idx < 0: idx = 0
         return self.data["screens"][idx]
 
-    def _add_widget_from_palette(self, wtype: str, parent_id: str|None):
+    def _add_widget_from_palette(self, wtype: str, parent_id: str | None):
         screen = self._get_current_screen()
         new_id = normalize_c_identifier(f"{wtype}_{len(screen['widgets'])+1}")
         node = {"id": new_id, "type": wtype, "props": {"name": wtype}, "children": []}
@@ -72,9 +73,7 @@ class MainWindow(QMainWindow):
         save_project(self.project_path, self.data)
         self.left.populate_widgets()
 
-    # ---- menus ----
     def _make_menus(self):
-        # File
         m_file = self.menuBar().addMenu("File")
         for title, handler in [
             ("New", self.on_file_new),
@@ -85,7 +84,6 @@ class MainWindow(QMainWindow):
         ]:
             act = QAction(title, self); act.triggered.connect(handler); m_file.addAction(act)
 
-        # Project
         m_proj = self.menuBar().addMenu("Project")
         for title, handler in [
             ("New", self.on_project_new),
@@ -97,7 +95,6 @@ class MainWindow(QMainWindow):
         m_proj.addSeparator()
         act_settings = QAction("Settings…", self); act_settings.triggered.connect(self.on_settings); m_proj.addAction(act_settings)
 
-        # View → Theme
         m_view = self.menuBar().addMenu("View")
         m_theme = m_view.addMenu("Theme")
         self.act_theme_system = QAction("System", self, checkable=True)
@@ -108,7 +105,6 @@ class MainWindow(QMainWindow):
         t = self.data.get("ui", {}).get("theme", "system")
         (self.act_theme_dark if t=="dark" else self.act_theme_system).setChecked(True)
 
-    # ---- settings / theme ----
     def on_settings(self):
         dlg = ProjectSettingsDialog(self.data, self)
         if dlg.exec():
@@ -117,8 +113,8 @@ class MainWindow(QMainWindow):
             proj["lvgl_version"] = patch["lvgl_version"]
             proj.setdefault("target", {}).update(patch["target"])
             save_project(self.project_path, self.data)
-            # перезагрузим палитру под новую версию
-            self.right.reload_palette()
+            # перезагрузить палитру под новую версию
+            self.right.reload_palette(proj["lvgl_version"])
 
     def _set_theme(self, theme: str):
         self.act_theme_dark.setChecked(theme=="dark")
@@ -127,7 +123,7 @@ class MainWindow(QMainWindow):
         self.data.setdefault("ui", {})["theme"] = theme
         save_project(self.project_path, self.data)
 
-    # ---- stubs ----
+    # stubs
     def on_file_new(self): pass
     def on_file_open(self): pass
     def on_file_save(self): save_project(self.project_path, self.data)
